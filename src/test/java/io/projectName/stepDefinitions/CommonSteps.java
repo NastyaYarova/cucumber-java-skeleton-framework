@@ -19,4 +19,9 @@ public class CommonSteps {
     public void checkPageWasOpened(String pageName) {
         Assert.assertTrue(commonMethods.verifyPageWasOpened(pageName));
     }
+
+    @Then("close")
+    public void close() {
+        testContext.getWebDriverManager().closeDriver();
+    }
 }
