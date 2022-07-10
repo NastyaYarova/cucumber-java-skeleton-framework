@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.Parameters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,10 +16,16 @@ public class WebDriverManager {
     private static DriverType driverType;
     private static EnvironmentType environmentType;
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
+    private static final String FIREFOX_DRIVER_PROPERTY = "webdriver.gecko.driver";
 
-    public WebDriverManager() {
-        driverType = FileReaderManager.getInstance().getConfigReader().getBrowser();
+    @Parameters("Browser")
+    public WebDriverManager(String parameter) {
         environmentType = FileReaderManager.getInstance().getConfigReader().getEnvironment();
+        if (environmentType.equals("local")) {
+            driverType = FileReaderManager.getInstance().getConfigReader().getBrowser();
+        } else {
+            driverType = DriverType.get(parameter);
+        }
     }
 
     public WebDriver getDriver() {
@@ -39,16 +46,35 @@ public class WebDriverManager {
     }
 
     private WebDriver createRemoteDriver() {
-        throw new RuntimeException("RemoteWebDriver is not yet implemented");
+        switch (driverType) {
+            case FIREFOX:
+                System.setProperty(FIREFOX_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "geckodriver");
+                driver = new FirefoxDriver();
+                break;
+            case CHROME:
+                System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "chromedriver");
+                driver = new ChromeDriver();
+                break;
+            case INTERNETEXPLORER:
+                driver = new InternetExplorerDriver();
+                break;
+            default:
+                throw new RuntimeException("RemoteWebDriver was not created");
+        }
+        if (FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize())
+            driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);
+        return driver;
     }
 
     private WebDriver createLocalDriver() {
         switch (driverType) {
             case FIREFOX:
+                System.setProperty(FIREFOX_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "geckodriver");
                 driver = new FirefoxDriver();
                 break;
             case CHROME:
-                System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath());
+                System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "chromedriver");
                 driver = new ChromeDriver();
                 break;
             case INTERNETEXPLORER:
