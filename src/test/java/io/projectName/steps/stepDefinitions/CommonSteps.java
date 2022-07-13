@@ -1,4 +1,4 @@
-package io.projectName.stepDefinitions;
+package io.projectName.steps.stepDefinitions;
 
 import io.cucumber.java.en.Then;
 import io.projectName.common.CommonMethods;
@@ -18,10 +18,5 @@ public class CommonSteps {
     @Then("check page {string} was opened")
     public void checkPageWasOpened(String pageName) {
         Assert.assertTrue(commonMethods.verifyPageWasOpened(pageName));
-    }
-
-    @Then("close")
-    public void close() {
-        testContext.getWebDriverManager().closeDriver();
     }
 }

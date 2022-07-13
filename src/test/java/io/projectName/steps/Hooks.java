@@ -1,4 +1,4 @@
-package io.projectName;
+package io.projectName.steps;
 
 import com.cucumber.listener.Reporter;
 import com.google.common.io.Files;

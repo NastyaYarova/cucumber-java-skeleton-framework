@@ -16,7 +16,15 @@ Feature: Automated End2End Tests
 #      | customer |
 #      | Lakshay  |
 
-  Scenario: Customer place an order by purchasing an item from search
+  Scenario: Customer able to open Home page
     Given user is on Home Page
     Then check page "Home Page" was opened
-    Then close
+
+  Scenario: Customer able to open Home page yep
+    Given user is on Home Page
+    Then check page "Home Page" was opened
+
+  @Smoke
+  Scenario: Customer able to open Home page one more time
+    Given user is on Home Page
+    Then check page "Home Page" was opened

@@ -46,11 +46,11 @@ public class WebDriverManager {
     private WebDriver createLocalDriver() {
         switch (driverType) {
             case FIREFOX:
-                System.setProperty(FIREFOX_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath());
+                System.setProperty(FIREFOX_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "geckodriver");
                 driver = new FirefoxDriver();
                 break;
             case CHROME:
-                System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath());
+                System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "chromedriver");
                 driver = new ChromeDriver();
                 break;
             case INTERNETEXPLORER:

@@ -1,4 +1,4 @@
-package io.projectName.stepDefinitions;
+package io.projectName.steps.stepDefinitions;
 
 import io.cucumber.java.en.When;
 import io.projectName.dataProvider.TestContext;
