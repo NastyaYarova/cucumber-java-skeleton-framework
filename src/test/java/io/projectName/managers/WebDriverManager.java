@@ -19,7 +19,7 @@ public class WebDriverManager {
 
     public WebDriverManager() {
         driverType = FileReaderManager.getInstance().getConfigReader().getBrowser();
-        environmentType = FileReaderManager.getInstance().getConfigReader().getEnvironment();
+//        environmentType = FileReaderManager.getInstance().getConfigReader().getEnvironment();
     }
 
     public WebDriver getDriver() {
@@ -28,23 +28,13 @@ public class WebDriverManager {
     }
 
     private WebDriver createDriver() {
-        switch (environmentType) {
-            case LOCAL:
-                driver = createLocalDriver();
-                break;
-            case REMOTE:
-                driver = createRemoteDriver();
-                break;
+        DriverType parameter;
+        if (System.getProperty("Browser") == null) {
+            parameter = driverType;
+        } else {
+            parameter = DriverType.get(System.getProperty("Browser"));
         }
-        return driver;
-    }
-
-    private WebDriver createRemoteDriver() {
-        throw new RuntimeException("RemoteWebDriver is not yet implemented");
-    }
-
-    private WebDriver createLocalDriver() {
-        switch (driverType) {
+        switch (parameter) {
             case FIREFOX:
                 System.setProperty(FIREFOX_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath() + "geckodriver");
                 driver = new FirefoxDriver();
@@ -57,7 +47,6 @@ public class WebDriverManager {
                 driver = new InternetExplorerDriver();
                 break;
         }
-
         if (FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize())
             driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);

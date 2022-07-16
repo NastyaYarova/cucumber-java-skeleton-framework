@@ -57,12 +57,12 @@ public class ConfigFileReader {
         else throw new RuntimeException("Browser Name Key value in Configuration.properties is not matched : " + browserName);
     }
 
-    public EnvironmentType getEnvironment() {
-        String environmentName = properties.getProperty("environment");
-        if(environmentName == null || environmentName.equalsIgnoreCase("local")) return EnvironmentType.LOCAL;
-        else if(environmentName.equals("remote")) return EnvironmentType.REMOTE;
-        else throw new RuntimeException("Environment Type Key value in Configuration.properties is not matched : " + environmentName);
-    }
+//    public EnvironmentType getEnvironment() {
+//        String environmentName = properties.getProperty("environment");
+//        if(environmentName == null || environmentName.equalsIgnoreCase("local")) return EnvironmentType.LOCAL;
+//        else if(environmentName.equals("remote")) return EnvironmentType.REMOTE;
+//        else throw new RuntimeException("Environment Type Key value in Configuration.properties is not matched : " + environmentName);
+//    }
 
     public Boolean getBrowserWindowSize() {
         String windowSize = properties.getProperty("windowMaximize");
