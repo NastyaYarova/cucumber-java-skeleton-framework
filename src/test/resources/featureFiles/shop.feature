@@ -24,7 +24,6 @@ Feature: Automated End2End Tests
     Given user is on Home Page
     Then check page "Home Page" was opened
 
-  @Smoke
-  Scenario: Customer able to open Home page one more time
-    Given user is on Home Page
-    Then check page "Home Page" was opened
+#  Scenario: Customer able to open Home page one more time
+#    Given user is on Home Page
+#    Then check page "Home Page" was opened
