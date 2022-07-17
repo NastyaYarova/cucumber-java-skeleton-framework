@@ -16,14 +16,16 @@ Feature: Automated End2End Tests
 #      | customer |
 #      | Lakshay  |
 
+  @Smoke @Regression
   Scenario: Customer able to open Home page
     Given user is on Home Page
     Then check page "Home Page" was opened
 
+  @Regression
   Scenario: Customer able to open Home page yep
     Given user is on Home Page
     Then check page "Home Page" was opened
 
-#  Scenario: Customer able to open Home page one more time
-#    Given user is on Home Page
-#    Then check page "Home Page" was opened
+  Scenario: Customer able to open Home page one more time
+    Given user is on Home Page
+    Then check page "Home Page" was opened
